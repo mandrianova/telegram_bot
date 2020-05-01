@@ -1,3 +1,4 @@
+import os
 import urllib.request
 import urllib.parse
 from typing import Optional
@@ -8,9 +9,9 @@ from telegram import Message, get_name
 
 
 def get_hello_text(chat_id: int, group_name: str, name: str) -> str:
-    try:
+    if os.path.exists('templates/hello_text_%s.html' % chat_id):
         file_hello = open('templates/hello_text_%s.html' % chat_id, 'r', encoding='UTF-8')
-    except:
+    else:
         file_hello = open('templates/hello_text.html', 'r', encoding='UTF-8')
     text = file_hello.read().format(group_name=group_name, name=name)
     file_hello.close()
@@ -20,7 +21,7 @@ def get_hello_text(chat_id: int, group_name: str, name: str) -> str:
 def encode_params(**kwargs) -> str:
     params = {}
     for key in kwargs:
-        if kwargs[key]:
+        if kwargs[key] is not None:
             params[key] = kwargs[key]
         else:
             continue
@@ -29,7 +30,8 @@ def encode_params(**kwargs) -> str:
 
 def send_message(chat_id: int, text: str, message_id: Optional[int] = None):
     bot_url = f"https://api.telegram.org/bot{TG_TOKEN}"
-    message_params_encoded = encode_params(chat_id=chat_id, text=text, reply_to_message_id=message_id, parse_mode='HTML')
+    message_params_encoded = encode_params(chat_id=chat_id, text=text, reply_to_message_id=message_id,
+                                           parse_mode='HTML')
     send_url = f"{bot_url}/sendMessage?{message_params_encoded}"
     try:
         urllib.request.urlopen(send_url, timeout=1)
