@@ -1,4 +1,4 @@
-#Welcome bot
+# Welcome bot
 greetings when adding new users to the group. It's all!
 
 Runs on Python 3.8 as a lambda function on AWS.
@@ -12,7 +12,7 @@ Runs on Python 3.8 as a lambda function on AWS.
 6. Configure setWebhook - push: as new messages arrive, the Telegram server sends them to your bot using the AWS API.
 7. Add the bot to the group. Add a html-file to the templates folder by analogy with hello_text.html with the name hello_text_ {chat_id} .html, where chat_id is the group id (negative number).
 
-##Unresolved Nuances:
+## Unresolved Nuances:
 1. For some reason, lambda itself formats the event (from json it is converted to dict, for example, 'false' is automatically replaced by 'False'). 
 It is convenient, but it is not clear why this happens and what to expect from it.
 2. This installation tutorial is very poor. If it is in demand, I can paint more.
