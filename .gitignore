@@ -1,0 +1,10 @@
+tg_token.py
+tgbot.zip
+*.txt
+forrefactoring.py
+venv
+.idea
+__pycache__
+*.html
+!hello_text.html
+!hello_text_-426886186.html
