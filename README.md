@@ -1,3 +1,35 @@
+#Welcome bot
+greetings when adding new users to the group. It's all!
+
+Runs on Python 3.8 as a lambda function on AWS.
+
+## For running you need:
+1. Create a bot through BotFather, get a token. Set / setprivacy - disable.
+2. Create a file tg_token.py and set the variable TG_TOKEN = "token" in it, assigning it the received token. Put the file next to the rest of the scripts.
+3. Create an AWS account, get a lambda function using Python 3.8 from scratch. Upload the zip archive with the code there
+4. Create an API on AWS and assign it to our lambda function.
+5. Select a template for API requests for proper json processing.
+6. Configure setWebhook - push: as new messages arrive, the Telegram server sends them to your bot using the AWS API.
+7. Add the bot to the group. Add a html-file to the templates folder by analogy with hello_text.html with the name hello_text_ {chat_id} .html, where chat_id is the group id (negative number).
+
+##Unresolved Nuances:
+1. For some reason, lambda itself formats the event (from json it is converted to dict, for example, 'false' is automatically replaced by 'False'). 
+It is convenient, but it is not clear why this happens and what to expect from it.
+2. This installation tutorial is very poor. If it is in demand, I can paint more.
+3. The strangest thing is that the maximum number of welcome messages at a time is 3. 
+After 3 requests, it fails with a timeout, while with 1 request, the execution speed is 123ms. 
+Eliminated the problem with the logic of the formation of messages. 
+If you just knock on the finished url, the same problem is still the same.
+
+# About the code itself
+- Not perfect, but simple.
+- Sending messages can be modified to other scenarios.
+- The Message class can be extended to other available fields in the API.
+- The get_name function allows you to get a link to a user and call him.
+- The hello_text.html template has placeholders {name} - username and {group_name} - chat name. If the chat is private, it will not have {group_name}. Two templates with group id are added as an example.
+- The welcome text is processed through the get_hello_text function.
+
+
 # Приветственный бот
 Прост как 3 рубля, никаких дополнительных библиотек не требуется.
 Отправляет приветствие при добавлении новых пользователей в группу. Все)
