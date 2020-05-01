@@ -29,7 +29,7 @@ def encode_params(**kwargs) -> str:
 
 def send_message(chat_id: int, text: str, message_id: Optional[int] = None):
     bot_url = f"https://api.telegram.org/bot{TG_TOKEN}"
-    message_params_encoded = encode_params(chat_id=chat_id, text=text, message_id=message_id, parse_mode='HTML')
+    message_params_encoded = encode_params(chat_id=chat_id, text=text, reply_to_message_id=message_id, parse_mode='HTML')
     send_url = f"{bot_url}/sendMessage?{message_params_encoded}"
     try:
         urllib.request.urlopen(send_url, timeout=1)
