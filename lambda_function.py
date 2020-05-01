@@ -9,9 +9,9 @@ from telegram import Message, get_name
 
 
 def get_hello_text(chat_id: int, group_name: str, name: str) -> str:
-    if os.path.exists('templates/hello_text_%s.html' % chat_id):
+    try:
         file_hello = open('templates/hello_text_%s.html' % chat_id, 'r', encoding='UTF-8')
-    else:
+    except:
         file_hello = open('templates/hello_text.html', 'r', encoding='UTF-8')
     text = file_hello.read().format(group_name=group_name, name=name)
     file_hello.close()
