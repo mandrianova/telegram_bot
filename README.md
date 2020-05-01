@@ -21,7 +21,7 @@ After 3 requests, it fails with a timeout, while with 1 request, the execution s
 Eliminated the problem with the logic of the formation of messages. 
 If you just knock on the finished url, the same problem is still the same.
 
-# About the code itself
+## About the code itself
 - Not perfect, but simple.
 - Sending messages can be modified to other scenarios.
 - The Message class can be extended to other available fields in the API.
