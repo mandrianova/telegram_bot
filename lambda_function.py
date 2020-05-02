@@ -1,4 +1,3 @@
-import os
 import urllib.request
 import urllib.parse
 from typing import Optional
@@ -6,12 +5,13 @@ from typing import Optional
 from tg_token import TG_TOKEN
 import json
 from telegram import Message, get_name
+from check_functions import is_correct_whois, has_whois_in_text
 
 
 def get_hello_text(chat_id: int, group_name: str, name: str) -> str:
     try:
         file_hello = open('templates/hello_text_%s.html' % chat_id, 'r', encoding='UTF-8')
-    except:
+    except:     # TODO продумать обработку разного типа исключений и настроить логирование ошибок
         file_hello = open('templates/hello_text.html', 'r', encoding='UTF-8')
     text = file_hello.read().format(group_name=group_name, name=name)
     file_hello.close()
@@ -36,7 +36,7 @@ def send_message(chat_id: int, text: str, message_id: Optional[int] = None):
     try:
         urllib.request.urlopen(send_url, timeout=1)
         return f'Success'
-    except:
+    except:     # TODO продумать обработку разного типа исключений и настроить логирование ошибок
         return f'Fail'
 
 
@@ -49,11 +49,25 @@ def say_hello(message: Message) -> dict:
     return result
 
 
+def send_answer(message: Message):
+    if has_whois_in_text(message.text):
+        if is_correct_whois(message.text):
+            text = "Спасибо, что представились"
+        else:
+            text = "Вы представились не по правилам, пожалуйста, перепишите свое представление по шаблону: #whois " \
+                   "Гаррус 16-10 "
+        return send_message(message.chat_id, text, message.id)
+    else:
+        return None
+
+
 def lambda_handler(event: dict, context):
     result = {}
     message = Message(event['body-json']['message'])
     if message.new_chat_members:
         result['say_hello'] = say_hello(message)
+    elif message.text:
+        result['send_answer'] = send_answer(message)
     print(event, result)
     return {
         'statusCode': 200,

@@ -3,6 +3,8 @@ from lambda_function import get_hello_text, send_message, encode_params, say_hel
 from telegram import Message, get_name
 import urllib.request
 import os
+from check_functions import has_whois_in_text, is_correct_whois
+
 
 event = {'body-json':
              {'update_id': 243589604,
@@ -83,6 +85,16 @@ class TestFunctions(unittest.TestCase):
         user_full = {'id': 1115, 'username': 'sun', 'first_name': 'Igor', 'last_name': 'Chi', 'is_bot': False,
                      'language_code': 'ru'}
         self.assertEqual(get_name(user_full), "@sun, Igor Chi")
+
+    def test_has_whois_in_text(self):
+        self.assertEqual(has_whois_in_text('Привет'), False)
+        self.assertEqual(has_whois_in_text('Привет всем! #whois Маша'), True)
+
+    def test_is_correct_whois(self):
+        self.assertEqual(is_correct_whois('Привет #whois'), False)
+        self.assertEqual(is_correct_whois('Привет всем! #whois Маша'), False)
+        self.assertEqual(is_correct_whois('Привет всем! #whois Маша 23465-827346'), True)
+        self.assertEqual(is_correct_whois('Привет всем! #whois Маша и дальше я продолжила писать свое письмо'), False)
 
 
 if __name__ == '__main__':
