@@ -24,6 +24,10 @@ class Message:
         else:
             return False
 
+    @property
+    def text(self):
+        return self.message.get('text')
+
 
 def get_name(user: dict) -> str:
     first_name = user.get('first_name')
