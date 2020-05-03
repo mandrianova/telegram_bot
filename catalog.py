@@ -21,7 +21,7 @@ class Catalog:
         text = self.text.lower()
         for name in get_list_names():
             check_name = name.lower()
-            if check_name in text:
+            if check_name[0:-1] in text:
                 return name
         return None
 
