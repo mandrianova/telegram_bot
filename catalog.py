@@ -11,7 +11,7 @@ def get_list_names():
 
 
 class Catalog:
-    key_words = {'телефон': 'phone', 'адрес': 'address', 'ссылк': 'link'}
+    key_words = {'телефон': 'phone', 'адрес': 'address', 'ссылк': 'link', 'где': 'address', 'номер': 'phone'}
 
     def __init__(self, text):
         self.text = text
