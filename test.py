@@ -112,7 +112,7 @@ class TestFunctions(unittest.TestCase):
         test_text = Catalog("Да просто всякая фигня")
         self.assertEqual(test_text.get_help(), "Люди, помогите! Я знаю только про: Мой дом, WOW, Home and Flowers, "
                                                "OZON, Лавка Славки, Еда в лесу, Food and wine, ИЗЮМ, Маркет Фрукты, "
-                                               "Суши Кушай, Така, Фишка, ЭкоМаркет в Лесу")
+                                               "Суши Кушай, Така, Фишка, ЭкоМаркет в Лесу, Почта")
         test_text_name = Catalog("Бот, скажи телефон така")
         self.assertEqual(test_text_name.get_help(), "+7-905-776-20-86")
         test_text_name = Catalog("Бот, скажи телефон таки")
