@@ -72,6 +72,6 @@ If you just knock on the finished url, the same problem is still the same.
 
 Работает на русском, позволяет по названию магазина получить его адрес, ссылку, телефон и дополнительную информацию.
 
-Ключевые слова, на которые откликается бот указаны в [check_functions.has_request_to_bot](/blob/master/check_functions.py)
+Ключевые слова, на которые откликается бот указаны в [check_functions.has_request_to_bot](check_functions.py)
 
 
