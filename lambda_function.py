@@ -1,11 +1,11 @@
 import urllib.request
 import urllib.parse
 from typing import Optional
-
+from catalog import Catalog
 from tg_token import TG_TOKEN
 import json
 from telegram import Message, get_name
-from check_functions import is_correct_whois, has_whois_in_text
+from check_functions import is_correct_whois, has_whois_in_text, has_request_to_bot
 
 
 def get_hello_text(chat_id: int, group_name: str, name: str) -> str:
@@ -56,6 +56,10 @@ def send_answer(message: Message):
         else:
             text = "Вы представились не по правилам, пожалуйста, перепишите свое представление по шаблону: #whois " \
                    "Гаррус 16-10 "
+        return send_message(message.chat_id, text, message.id)
+    elif has_request_to_bot(message.text):
+        request_to_bot = Catalog(message.text)
+        text = request_to_bot.get_help()
         return send_message(message.chat_id, text, message.id)
     else:
         return None

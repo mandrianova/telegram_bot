@@ -3,8 +3,8 @@ from lambda_function import get_hello_text, send_message, encode_params, say_hel
 from telegram import Message, get_name
 import urllib.request
 import os
-from check_functions import has_whois_in_text, is_correct_whois
-
+from check_functions import has_whois_in_text, is_correct_whois, has_request_to_bot
+from catalog import Catalog
 
 event = {'body-json':
              {'update_id': 243589604,
@@ -102,6 +102,21 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(is_correct_whois('Привет всем! #whois Маша и дальше я продолжила писать свое письмо'), False)
         self.assertEqual(is_correct_whois('#whois 13-666 магия'), True)
         self.assertEqual(is_correct_whois('#whois чёрная магия'), False)
+
+    def test_has_request_to_bot(self):
+        self.assertEqual(has_request_to_bot('Бот, скажи мне что-нибудь'), True)
+
+    def test_catalog(self):
+        test_text_taka_phone = Catalog("Бот, скажи телефон Така")
+        self.assertEqual(test_text_taka_phone.get_help(), "+7-905-776-20-86")
+        test_text = Catalog("Да просто всякая фигня")
+        self.assertEqual(test_text.get_help(), "Люди, помогите! Я знаю только про: Мой дом, WOW, Home and Flowers, "
+                                               "OZON, Лавка Славки, Еда в лесу, Food and wine, ИЗЮМ, Маркет Фрукты, "
+                                               "Суши Кушай, Така, Фишка, ЭкоМаркет в Лесу")
+        test_text_name = Catalog("Бот, скажи телефон така")
+        self.assertEqual(test_text_name.get_help(), "+7-905-776-20-86")
+        test_text_name = Catalog("Бот, скажи телефон таки")
+        self.assertEqual(test_text_name.get_help(), "+7-905-776-20-86")
 
 
 if __name__ == '__main__':
