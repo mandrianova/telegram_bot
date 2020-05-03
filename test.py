@@ -47,6 +47,11 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(get_hello_text(-53, 'check', 'first_name'),
                          "Приветствуем в чате check нового участника first_name")
         os.remove('templates/hello_text_-53.html')
+        with open('templates/hello_text_-24.html', 'w', encoding='UTF-8') as new_hello:
+            new_hello.write('Приветствуем в чате нового участника')
+        self.assertEqual(get_hello_text(-24, 'check', 'first_name'),
+                         "Приветствуем в чате нового участника")
+        os.remove('templates/hello_text_-24.html')
 
     def test_get_hello_default_text(self):
         self.assertEqual(get_hello_text(-53, 'check', 'first_name'), "Добро пожаловать в чат check, first_name.")
