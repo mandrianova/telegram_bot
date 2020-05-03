@@ -9,7 +9,7 @@ def is_correct_whois(text: str) -> bool:
         if (
                 len(words[start_template + 1].split('-')) > 1
                 or len(words[start_template + 2].split('-')) > 1
-                or len(words[start_template + 3].split('-')) > 1
+                or (len(words) >= start_template + 4 and len(words[start_template + 3].split('-')) > 1)
         ):
             return True
         else:

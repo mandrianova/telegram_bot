@@ -96,6 +96,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(is_correct_whois('Привет всем! #whois Маша 23465-827346'), True)
         self.assertEqual(is_correct_whois('Привет всем! #whois Маша и дальше я продолжила писать свое письмо'), False)
         self.assertEqual(is_correct_whois('#whois 13-666 магия'), True)
+        self.assertEqual(is_correct_whois('#whois чёрная магия'), False)
 
 
 if __name__ == '__main__':
