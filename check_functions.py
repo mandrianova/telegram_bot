@@ -19,7 +19,7 @@ def is_correct_whois(text: str) -> bool:
 
 
 def has_request_to_bot(text: str) -> bool:
-    request_phrases = ['окей флудилка', 'ок флудилка', 'бот скажи', '@mvl001_bot']
+    request_phrases = ['окей флудилка', 'ок флудилка', 'бот скажи', 'скажи бот', '@mvl001_bot']
     text = text.replace(',', '')
     text = text.lower()
     for phrase in request_phrases:
