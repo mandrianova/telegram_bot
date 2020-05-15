@@ -34,12 +34,14 @@ message = Message(event['body-json']['message'])
 class TestFunctions(unittest.TestCase):
 
     def test_encode_params_without_message_id(self):
-        self.assertEqual(encode_params(chat_id=-123, text="Мама мыла раму", parse_mode="HTML", message_id=None),
-                         "chat_id=-123&text=%D0%9C%D0%B0%D0%BC%D0%B0+%D0%BC%D1%8B%D0%BB%D0%B0+%D1%80%D0%B0%D0%BC%D1%83&parse_mode=HTML")
+        response = b'chat_id=-123&text=%D0%9C%D0%B0%D0%BC%D0%B0+%D0%BC%D1%8B%D0%BB%D0%B0&parse_mode=HTML'
+        self.assertEqual(encode_params(chat_id=-123, text="Мама мыла", parse_mode="HTML", message_id=None),
+                         response)
 
     def test_encode_params_with_message_id(self):
-        self.assertEqual(encode_params(chat_id=-123, text="Мама мыла раму", parse_mode="HTML", message_id=25),
-                         "chat_id=-123&text=%D0%9C%D0%B0%D0%BC%D0%B0+%D0%BC%D1%8B%D0%BB%D0%B0+%D1%80%D0%B0%D0%BC%D1%83&parse_mode=HTML&message_id=25")
+        response = b'chat_id=-123&text=%D0%A2%D0%B5%D0%BA%D1%81%D1%82&parse_mode=HTML&message_id=25'
+        self.assertEqual(encode_params(chat_id=-123, text="Текст", parse_mode="HTML", message_id=25),
+                         response)
 
     def test_get_hello_new_text(self):
         with open('templates/hello_text_-53.html', 'w', encoding='UTF-8') as new_hello:
