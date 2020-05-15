@@ -60,5 +60,4 @@ class Catalog:
             return "\n".join(sorted(self.category_list[self.category]))
         list_names = ', '.join(sorted(self.full_catalog.keys()))
         return f'Люди, помогите! \nЯ знаю только про: {list_names}. \n<b>Можете добавлять данные ' \
-               f'<a href="https://docs.google.com/spreadsheets/d/1o9SfeTEHcML2oAhA93hQAu3YhBZc9n8O_c_VpJJtc9c/edit#gid' \
-               f'=1906406446">в эту таблицу</a> и помечать новое зеленым цветом.</b>'
+               f'<a href="https://bit.ly/3fSxMn6">в эту таблицу</a> и помечать новое зеленым цветом.</b>'

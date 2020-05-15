@@ -18,23 +18,24 @@ def get_hello_text(chat_id: int, group_name: str, name: str) -> str:
     return text
 
 
-def encode_params(**kwargs) -> str:
+def encode_params(**kwargs) -> bytes:
     params = {}
     for key in kwargs:
         if kwargs[key] is not None:
             params[key] = kwargs[key]
         else:
             continue
-    return urllib.parse.urlencode(params)
+    data = urllib.parse.urlencode(params)
+    return data.encode('ascii')
 
 
 def send_message(chat_id: int, text: str, message_id: Optional[int] = None):
     bot_url = f"https://api.telegram.org/bot{TG_TOKEN}"
-    message_params_encoded = encode_params(chat_id=chat_id, text=text, reply_to_message_id=message_id,
-                                           parse_mode='HTML')
-    send_url = f"{bot_url}/sendMessage?{message_params_encoded}"
+    data = encode_params(chat_id=chat_id, text=text, reply_to_message_id=message_id,
+                                           parse_mode='HTML', disable_web_page_preview='True')
+    send_url = f"{bot_url}/sendMessage"
     try:
-        urllib.request.urlopen(send_url, timeout=1)
+        urllib.request.urlopen(send_url, data, timeout=1)
         return f'Success'
     except:     # TODO продумать обработку разного типа исключений и настроить логирование ошибок
         return f'Fail'
